@@ -1,3 +1,9 @@
+<?php
+
+include "connection.php";
+
+?>
+
 <html lang="en">
 <head>
   <title>Bootstrap Example</title>
@@ -31,9 +37,61 @@
     </div>
 
     
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button type="submit" name="insert" class="btn btn-default">Insert</button>
+    <button type="submit" name="update" class="btn btn-default">Update</button>
+    <button type="submit" name="delete" class="btn btn-default">Delete</button>
   </form>
 </div>
+</div>
+
+<div class="col-lg-12">
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th>Contact</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <?php
+
+            $res = mysqli_query($link, "select * from table1");
+            while($row = mysqli_fetch_array($res)){
+                echo"<tr>";
+                echo"<td>"; echo $row["Id"]; echo"</td>";
+                echo"<td>"; echo $row["firstname"]; echo"</td>";
+                echo"<td>"; echo $row["lastname"]; echo"</td>";
+                echo"<td>"; echo $row["email"]; echo"</td>";
+                echo"<td>"; echo $row["contact"]; echo"</td>";
+                echo"</tr>";
+            }
+
+        ?>
+      
+    </tbody>
+  </table>
+</div>
+
+<?php
+
+if(isset($_POST["insert"])){
+
+    mysqli_query($link, "insert into table1 values(NULL, '$_POST[firstname]', '$_POST[lastname]', '$_POST[email]', '$_POST[contact]')");
+
+}
+
+if(isset($_POST["delete"])){
+
+    mysqli_query($link, "delete from table1 where firstname='$_POST[firstname]'") or die (mysqli_error($link));
+
+}
+
+?>
+
 </div>
 
 </body>
