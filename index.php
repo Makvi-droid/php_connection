@@ -53,6 +53,8 @@ include "connection.php";
         <th>Lastname</th>
         <th>Email</th>
         <th>Contact</th>
+        <th>Edit</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -67,6 +69,8 @@ include "connection.php";
                 echo"<td>"; echo $row["lastname"]; echo"</td>";
                 echo"<td>"; echo $row["email"]; echo"</td>";
                 echo"<td>"; echo $row["contact"]; echo"</td>";
+                echo"<td>"; ?>  <a href="edit.php?id=<?php echo $row["Id"];  ?>"> <button type="button" class = "btn btn-success">Edit</button></a> <?php echo "</td>";
+                echo"<td>"; ?>  <a href="delete.php?id=<?php echo $row["Id"]; ?>"> <button type="button" class = "btn btn-danger">Delete</button></a> <?php echo "</td>";
                 echo"</tr>";
             }
 
@@ -82,13 +86,53 @@ if(isset($_POST["insert"])){
 
     mysqli_query($link, "insert into table1 values(NULL, '$_POST[firstname]', '$_POST[lastname]', '$_POST[email]', '$_POST[contact]')");
 
+
+    ?>
+
+    <script type="text/javascript">
+
+    window.location.href = window.location.href;
+
+    </script>
+
+    <?php
 }
+
 
 if(isset($_POST["delete"])){
 
     mysqli_query($link, "delete from table1 where firstname='$_POST[firstname]'") or die (mysqli_error($link));
 
+    ?>
+
+    <script type="text/javascript">
+
+    window.location.href = window.location.href;
+
+    </script>
+
+    <?php
+
 }
+
+
+
+if(isset($_POST["update"])){
+
+    mysqli_query($link, "update table1 set firstname='$_POST[lastname]' where firstname='$_POST[firstname]'") or die (mysqli_errno($link));
+
+    ?>
+
+    <script type="text/javascript">
+
+    window.location.href = window.location.href;
+
+    </script>
+
+    <?php
+
+}
+
 
 ?>
 
